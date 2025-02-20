@@ -4,6 +4,9 @@ This project uses Fixtures and the Page Object Model (POM) to promote reusable a
 
 The primary requirement was to verify that the first 100 posts on the Newest page are sorted correctly. However, I extended the scope to test additional key user flows on the Hacker News site using Playwright.
 
+I did not handle rate limiting in production environments. Proper handling would require either using VMs or making the Playwright automation script appear human-like. As a result, these tests should be run sequentially using:
+`npx playwright test --ui`
+
 ### Newest Page:
 
 - **Sorted By Newest**: Verified that posts are displayed in descending order by time.
