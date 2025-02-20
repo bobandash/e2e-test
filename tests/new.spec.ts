@@ -1,5 +1,6 @@
 import { test, expect } from "./base";
 import { testAccount } from "./constants";
+import DiscussPage from "./pom/discuss-page";
 import { isSortedByNewest } from "./util";
 
 // for list of new posts
@@ -108,4 +109,22 @@ test("should be able to upvote posts and increase points", async ({
       expect(newRenderedScore).toBeGreaterThan(oldScore);
     }
   });
+});
+
+test("should not be able to comment on a post if not signed in", async ({
+  newestPage,
+  page,
+}) => {
+  await newestPage.goto();
+  const posts = await newestPage.getPosts();
+  const firstPost = posts[0];
+  const title = await firstPost.getTitle();
+  await firstPost.navigateDiscussPage();
+
+  const discussPage = new DiscussPage(page);
+  await discussPage.addComment("test");
+
+  await expect(
+    page.getByText("You have to be logged in to comment.")
+  ).toBeVisible();
 });
