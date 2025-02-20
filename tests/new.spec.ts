@@ -118,7 +118,6 @@ test("should not be able to comment on a post if not signed in", async ({
   await newestPage.goto();
   const posts = await newestPage.getPosts();
   const firstPost = posts[0];
-  const title = await firstPost.getTitle();
   await firstPost.navigateDiscussPage();
 
   const discussPage = new DiscussPage(page);
